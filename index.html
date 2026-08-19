@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>چاشنی | رستوران پریمیوم</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Tahoma,Arial,sans-serif;
+  background:#080808;
+  color:#fff;
+  line-height:1.8;
+}
+
+:root{
+  --gold:#d4af37;
+  --gold2:#f1d77a;
+  --dark:#0b0b0b;
+  --card:#151515;
+  --muted:#aaa;
+}
+
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  background:rgba(8,8,8,.88);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(212,175,55,.18);
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:18px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:27px;
+  font-weight:bold;
+  color:var(--gold);
+}
+
+nav ul{
+  display:flex;
+  list-style:none;
+  gap:28px;
+}
+
+nav a{
+  color:#eee;
+  text-decoration:none;
+  transition:.3s;
+}
+
+nav a:hover{
+  color:var(--gold);
+}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:120px 20px 70px;
+
+  background:
+  linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.9)),
+  url("https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1800&q=85")
+  center/cover;
+}
+
+.hero-content{
+  max-width:850px;
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 18px;
+  border:1px solid var(--gold);
+  color:var(--gold2);
+  border-radius:30px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font-size:clamp(55px,10vw,100px);
+  color:var(--gold);
+  line-height:1;
+  margin-bottom:20px;
+}
+
+.hero h2{
+  font-size:clamp(23px,4vw,42px);
+  margin-bottom:18px;
+}
+
+.hero p{
+  color:#ddd;
+  font-size:18px;
+  max-width:650px;
+  margin:auto auto 30px;
+}
+
+.btn{
+  display:inline-block;
+  padding:13px 30px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.3s;
+  margin:5px;
+}
+
+.btn-gold{
+  background:var(--gold);
+  color:#111;
+}
+
+.btn-gold:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 35px rgba(212,175,55,.25);
+}
+
+.btn-outline{
+  border:1px solid var(--gold);
+  color:var(--gold);
+}
+
+.btn-outline:hover{
+  background:var(--gold);
+  color:#111;
+}
+
+section{
+  max-width:1200px;
+  margin:auto;
+  padding:100px 25px;
+}
+
+.title{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.title span{
+  color:var(--gold);
+  font-size:14px;
+}
+
+.title h2{
+  font-size:40px;
+  margin:7px 0;
+}
+
+.title p{
+  color:var(--muted);
+}
+
+/* MENU */
+
+.filters{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:35px;
+}
+
+.filter{
+  padding:9px 20px;
+  border-radius:25px;
+  border:1px solid #39301c;
+  background:#111;
+  color:#ddd;
+  cursor:pointer;
+}
+
+.filter.active,
+.filter:hover{
+  background:var(--gold);
+  color:#111;
+}
+
+.menu{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+
+.food{
+  background:var(--card);
+  border:1px solid #292313;
+  border-radius:20px;
+  overflow:hidden;
+  transition:.35s;
+}
+
+.food:hover{
+  transform:translateY(-8px);
+  border-color:var(--gold);
+}
+
+.food-img{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+}
+
+.food-info{
+  padding:22px;
+}
+
+.food-info h3{
+  font-size:20px;
+  margin-bottom:5px;
+}
+
+.food-info p{
+  color:#999;
+  font-size:14px;
+  min-height:50px;
+}
+
+.food-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:15px;
+}
+
+.price{
+  color:var(--gold);
+  font-size:19px;
+  font-weight:bold;
+}
+
+.order{
+  border:0;
+  background:var(--gold);
+  color:#111;
+  border-radius:20px;
+  padding:7px 15px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* SPECIAL */
+
+.special{
+  border-radius:28px;
+  padding:60px 30px;
+  text-align:center;
+
+  background:
+  linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.55)),
+  url("https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1600&q=85")
+  center/cover;
+
+  border:1px solid #57471d;
+}
+
+.special h2{
+  color:var(--gold);
+  font-size:38px;
+}
+
+.discount{
+  display:inline-block;
+  margin:20px;
+  padding:7px 20px;
+  border-radius:30px;
+  background:var(--gold);
+  color:#111;
+  font-weight:bold;
+}
+
+/* ABOUT */
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.about-img{
+  width:100%;
+  border-radius:25px;
+  border:1px solid #3b3018;
+}
+
+.about-text h2{
+  color:var(--gold);
+  font-size:35px;
+  margin-bottom:20px;
+}
+
+.about-text p{
+  color:#aaa;
+}
+
+/* REVIEWS */
+
+.reviews{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+
+.review{
+  background:var(--card);
+  border:1px solid #292313;
+  border-radius:20px;
+  padding:25px;
+}
+
+.stars{
+  color:var(--gold);
+  font-size:20px;
+}
+
+.review p{
+  color:#bbb;
+  margin:15px 0;
+}
+
+.review strong{
+  color:#eee;
+}
+
+/* GALLERY */
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.gallery img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:15px;
+  transition:.3s;
+}
+
+.gallery img:hover{
+  transform:scale(1.03);
+}
+
+/* CONTACT */
+
+.contact{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.contact-box{
+  text-align:center;
+  background:var(--card);
+  border:1px solid #292313;
+  padding:30px;
+  border-radius:20px;
+}
+
+.contact-box .icon{
+  font-size:35px;
+}
+
+.contact-box h3{
+  color:var(--gold);
+  margin:10px 0;
+}
+
+.contact-box p{
+  color:#aaa;
+}
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid #292313;
+  text-align:center;
+  padding:35px 20px;
+  color:#777;
+}
+
+footer span{
+  color:var(--gold);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+  .menu{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .reviews{
+    grid-template-columns:1fr;
+  }
+
+  .gallery{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .about-grid{
+    grid-template-columns:1fr;
+  }
+
+  .contact{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  .nav{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  nav ul{
+    gap:15px;
+    font-size:13px;
+  }
+
+  .hero{
+    padding-top:170px;
+  }
+
+  .menu{
+    grid-template-columns:1fr;
+  }
+
+  .gallery{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .gallery img{
+    height:160px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="nav">
+
+<div class="logo">چاشنی</div>
+
+<nav>
+<ul>
+<li><a href="#home">خانه</a></li>
+<li><a href="#menu">منو</a></li>
+<li><a href="#about">درباره ما</a></li>
+<li><a href="#gallery">گالری</a></li>
+<li><a href="#contact">تماس</a></li>
+</ul>
+</nav>
+
+</div>
+</header>
+
+
+<!-- HERO -->
+
+<div class="hero" id="home">
+
+<div class="hero-content">
+
+<div class="badge">رستوران پریمیوم چاشنی</div>
+
+<h1>چاشنی</h1>
+
+<h2>طعم متفاوت، تجربه‌ای فراموش‌نشدنی</h2>
+
+<p>
+ترکیبی از مواد اولیه تازه، آشپزی حرفه‌ای و فضایی متفاوت
+برای ساختن یک تجربه خوشمزه.
+</p>
+
+<a href="#menu" class="btn btn-gold">
+مشاهده منو
+</a>
+
+<a href="#contact" class="btn btn-outline">
+رزرو میز
+</a>
+
+</div>
+
+</div>
+
+
+<!-- MENU -->
+
+<section id="menu">
+
+<div class="title">
+<span>منوی رستوران</span>
+<h2>محبوب‌ترین انتخاب‌ها</h2>
+<p>غذاهای منتخب سرآشپز چاشنی</p>
+</div>
+
+<div class="filters">
+<button class="filter active">همه</button>
+<button class="filter">برگر</button>
+<button class="filter">پیتزا</button>
+<button class="filter">غذای ایرانی</button>
+<button class="filter">دسر</button>
+</div>
+
+<div class="menu">
+
+<div class="food">
+
+<img class="food-img"
+src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85">
+
+<div class="food-info">
+
+<h3>برگر مخصوص چاشنی</h3>
+
+<p>
+گوشت تازه، پنیر مخصوص، سبزیجات تازه و سس ویژه
+</p>
+
+<div class="food-bottom">
+
+<span class="price">۲۸۵,۰۰۰ تومان</span>
+
+<button class="order" onclick="addOrder('برگر مخصوص')">
+سفارش
+</button>
+
+</div>
+</div>
+</div>
+
+
+<div class="food">
+
+<img class="food-img"
+src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=85">
+
+<div class="food-info">
+
+<h3>پیتزا مخصوص</h3>
+
+<p>
+خمیر دست‌ساز، پنیر فراوان و ترکیب ویژه مواد تازه
+</p>
+
+<div class="food-bottom">
+
+<span class="price">۳۲۰,۰۰۰ تومان</span>
+
+<button class="order" onclick="addOrder('پیتزا مخصوص')">
+سفارش
+</button>
+
+</div>
+</div>
+</div>
+
+
+<div class="food">
+
+<img class="food-img"
+src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85">
+
+<div class="food-info">
+
+<h3>استیک ویژه</h3>
+
+<p>
+استیک گریل‌شده با سبزیجات تازه و سس مخصوص سرآشپز
+</p>
+
+<div class="food-bottom">
+
+<span class="price">۴۸۰,۰۰۰ تومان</span>
+
+<button class="order" onclick="addOrder('استیک ویژه')">
+سفارش
+</button>
+
+</div>
+</div>
+</div>
+
+
+<div class="food">
+
+<img class="food-img"
+src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=85">
+
+<div class="food-info">
+
+<h3>سالاد ویژه</h3>
+
+<p>
+سبزیجات تازه، مرغ گریل‌شده و سس مخصوص
+</p>
+
+<div class="food-bottom">
+
+<span class="price">۱۸۵,۰۰۰ تومان</span>
+
+<button class="order" onclick="addOrder('سالاد ویژه')">
+سفارش
+</button>
+
+</div>
+</div>
+</div>
+
+
+<div class="food">
+
+<img class="food-img"
+src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=85">
+
+<div class="food-info">
+
+<h3>پاستا آلفردو</h3>
+
+<p>
+پاستا تازه با مرغ گریل‌شده و سس آلفردوی مخصوص
+</p>
+
+<div class="food-bottom">
+
+<span class="price">۲۴۵,۰۰۰ تومان</span>
+
+<button class="order" onclick="addOrder('پاستا آلفردو')">
+سفارش
+</button>
+
+</div>
+</div>
+</div>
+
+
+<div class="food">
+
+<img class="food-img"
+src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=900&q=85">
+
+<div class="food-info">
+
+<h3>چیزکیک مخصوص</h3>
+
+<p>
+دسر تازه با ترکیب توت‌فرنگی و سس شکلات
+</p>
+
+<div class="food-bottom">
+
+<span class="price">۱۳۵,۰۰۰ تومان</span>
+
+<button class="order" onclick="addOrder('چیزکیک')">
+سفارش
+</button>
+
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+
+<!-- SPECIAL -->
+
+<section>
+
+<div class="special">
+
+<h2>🔥 پیشنهاد ویژه امروز</h2>
+
+<p>
+برگر مخصوص + سیب‌زمینی + نوشیدنی
+</p>
+
+<div class="discount">
+۲۰٪ تخفیف
+</div>
+
+<br>
+
+<a href="#contact" class="btn btn-gold">
+رزرو و سفارش
+</a>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="about-grid">
+
+<img class="about-img"
+src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=85">
+
+<div class="about-text">
+
+<h2>داستان چاشنی</h2>
+
+<p>
+چاشنی با هدف ساختن تجربه‌ای متفاوت از غذا شکل گرفت.
+ما باور داریم یک رستوران خوب فقط درباره غذا نیست؛
+بلکه درباره کیفیت، فضای دلنشین و خاطره‌ای است که برای
+مشتری باقی می‌ماند.
+</p>
+
+<br>
+
+<p>
+تمام تلاش ما استفاده از مواد اولیه تازه و ارائه غذایی با
+کیفیت بالا است.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- REVIEWS -->
+
+<section>
+
+<div class="title">
+
+<span>تجربه مشتریان</span>
+
+<h2>مشتری‌ها درباره ما چه می‌گویند؟</h2>
+
+</div>
+
+<div class="reviews">
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+«برگر مخصوص واقعاً عالی بود. کیفیت غذا و برخورد کارکنان
+خیلی خوب بود.»
+</p>
+
+<strong>محمد رضایی</strong>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+«فضای رستوران خیلی شیکه و پیتزا مخصوصش یکی از بهترین‌هایی
+بود که امتحان کردم.»
+</p>
+
+<strong>سارا احمدی</strong>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+«کیفیت غذا فوق‌العاده و سرویس‌دهی سریع بود. حتماً دوباره
+برمی‌گردم.»
+</p>
+
+<strong>علی کریمی</strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GALLERY -->
+
+<section id="gallery">
+
+<div class="title">
+
+<span>گالری</span>
+
+<h2>یک نگاه به چاشنی</h2>
+
+</div>
+
+<div class="gallery">
+
+<img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=85">
+
+<img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85">
+
+<img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85">
+
+<img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=900&q=85">
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="title">
+
+<span>تماس با ما</span>
+
+<h2>منتظر دیدار شما هستیم</h2>
+
+</div>
+
+<div class="contact">
+
+<div class="contact-box">
+
+<div class="icon">📞</div>
+
+<h3>تلفن</h3>
+
+<p>۰۵۶-۳۲۲۲۲۲۲۲</p>
+
+</div>
+
+
+<div class="contact-box">
+
+<div class="icon">📍</div>
+
+<h3>آدرس</h3>
+
+<p>بیرجند، خیابان اصلی، رستوران چاشنی</p>
+
+</div>
+
+
+<div class="contact-box">
+
+<div class="icon">📱</div>
+
+<h3>اینستاگرام</h3>
+
+<p>@ChashniRestaurant</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<p>
+این وب‌سایت یک <span>نمونه‌کار طراحی وب</span> است.
+</p>
+
+</footer>
+
+
+<script>
+
+function addOrder(food){
+
+alert(
+"سفارش «" + food +
+"» ثبت شد. این بخش در نسخه نمایشی فعال است."
+);
+
+}
+
+</script>
+
+</body>
+</html>
